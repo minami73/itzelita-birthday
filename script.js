@@ -131,8 +131,6 @@ function buildOrbit() {
     const h = wrapperEl.offsetHeight;
     const rx = (w / 2) * 0.9;
     const ry = (h / 2) * 0.9;
-    // En pantallas chicas el radio se limita a la altura del bloque para no tapar el título ni la edad
-    const radius = w < 600 ? Math.min(Math.max(rx, ry) * 0.8, h / 2 + 15) : Math.max(rx, ry) * 0.8;
     orbitContainer.innerHTML = '';
     orbitIcons.forEach((icon, i) => {
         const el = document.createElement('div');
@@ -143,7 +141,7 @@ function buildOrbit() {
         const dir = i % 2 === 0 ? 1 : -1;
         el.style.cssText = `
       --start: ${angle}deg;
-      --radius: ${radius}px;
+      --radius: ${Math.max(rx, ry) * 0.8}px;
       animation: orbitAnim ${dur}s linear infinite;
       ${dir < 0 ? 'animation-direction: reverse;' : ''}
     `;
