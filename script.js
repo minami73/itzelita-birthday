@@ -1,16 +1,22 @@
 // ─── SOUNDS ──────────────────────────────────────────────
-const sfxFanfare  = new Audio('sounds/fanfare.mp3');
+const bgMusic     = new Audio('sounds/mikrokosmos.mp3');
+bgMusic.loop = true;
+bgMusic.volume = 0.7;
 const sfxCongrats = new Audio('sounds/congratulations.mp3');
 const sfxCheering = new Audio('sounds/cheering.mp3');
 const sfxWhoosh   = new Audio('sounds/whoosh.mp3');
 const sfxSelect   = new Audio('sounds/select.mp3');
+const sfxAlert    = new Audio('sounds/alert.mp3');
+
+// Evita que el navegador restaure el scroll anterior al recargar con F5
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
 function enterPage() {
+  window.scrollTo(0, 0);
   const overlay = document.getElementById('intro-overlay');
   overlay.classList.add('fade-out');
   setTimeout(() => overlay.remove(), 650);
-  sfxFanfare.volume = 0.7;
-  sfxFanfare.play().catch(() => {});
+  setTimeout(() => bgMusic.play().catch(() => {}), 1500);
 }
 
 // Cooky asoma desde una esquina aleatoria al hacer hover en el botón de la intro
@@ -41,8 +47,8 @@ function enterPage() {
 })();
 
 function playCongratsSound() {
-    sfxCongrats.currentTime = 0;
-    sfxCongrats.play().catch(() => { });
+    sfxCheering.currentTime = 0;
+    sfxCheering.play().catch(() => { });
 }
 
 // ─── STARFIELD ───────────────────────────────────────────
@@ -229,13 +235,13 @@ const surprises = [
 let surpriseIndex = 0;
 
 function showSurprise() {
+    sfxAlert.currentTime = 0;
+    sfxAlert.play().catch(() => { });
     const msg = document.getElementById('surprise-msg');
     msg.innerHTML = surprises[surpriseIndex % surprises.length];
     msg.classList.add('show');
     surpriseIndex++;
     spawnConfetti(80);
-    sfxCheering.currentTime = 0;
-    sfxCheering.play().catch(() => { });
     setTimeout(() => msg.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
 }
 

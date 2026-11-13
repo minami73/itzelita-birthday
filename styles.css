@@ -368,12 +368,26 @@
   /* ─── FOTOS LATERALES (Jun y Song) ─── */
   .box-banner {
     position: absolute; top: 50%; transform: translateY(-50%);
-    height: 80%; width: auto; object-fit: contain;
+    height: 60%; width: auto; object-fit: contain;
     filter: drop-shadow(0 0 16px rgba(184,75,234,0.5));
     z-index: 2; pointer-events: none;
   }
-  .box-banner.left  { left: clamp(-370px, -29vw, -130px); }
-  .box-banner.right { right: clamp(-325px, -26vw, -120px); }
+  .box-banner.left  {
+    left: clamp(-370px, -29vw, -130px);
+    pointer-events: auto; /* necesario para detectar el hover */
+  }
+  .box-banner.left:hover { animation: tic-tac 1.25s step-end infinite; }
+  /* 45° y -45° en plano cartesiano (CSS: signo invertido), cambio seco */
+  @keyframes tic-tac {
+    0%   { transform: translateY(-50%) rotate(-45deg); }
+    50%  { transform: translateY(-50%) rotate(45deg); }
+  }
+  .box-banner.right {
+    right: clamp(-325px, -26vw, -120px);
+    height: 63%; /* compensa el margen transparente de song.png para igualar a Jun */
+    pointer-events: auto; /* necesario para detectar el hover */
+  }
+  .box-banner.right:hover { animation: tic-tac 1.25s step-end infinite; }
 
   .congrats-jp {
     font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
