@@ -67,6 +67,23 @@
     50%      { transform: rotate(10deg) scale(1.15); }
   }
 
+  /* Cooky asoma en diagonal desde una esquina al pasar el mouse por el botón */
+  #cooky-peek {
+    position: fixed; width: clamp(120px, 22vw, 240px); height: auto;
+    pointer-events: none; z-index: 1;
+    opacity: 0;
+    transition: transform 0.45s cubic-bezier(.34,1.56,.64,1), opacity 0.2s ease;
+  }
+  #cooky-peek.corner-tl { top: 0; left: 0;     transform: translate(-100%, -100%) rotate(135deg); }
+  #cooky-peek.corner-tr { top: 0; right: 0;    transform: translate(100%, -100%) rotate(-135deg); }
+  #cooky-peek.corner-bl { bottom: 0; left: 0;  transform: translate(-100%, 100%) rotate(45deg); }
+  #cooky-peek.corner-br { bottom: 0; right: 0; transform: translate(100%, 100%) rotate(-45deg); }
+  #cooky-peek.show { opacity: 1; }
+  #cooky-peek.corner-tl.show { transform: translate(-12%, -12%) rotate(135deg); }
+  #cooky-peek.corner-tr.show { transform: translate(12%, -12%) rotate(-135deg); }
+  #cooky-peek.corner-bl.show { transform: translate(-12%, 12%) rotate(45deg); }
+  #cooky-peek.corner-br.show { transform: translate(12%, 12%) rotate(-45deg); }
+
   #intro-title {
     font-family: 'Pacifico', cursive;
     font-size: clamp(1.8rem, 6vw, 3rem);
@@ -338,15 +355,25 @@
     box-shadow: 0 0 30px rgba(184,75,234,0.15), inset 0 0 30px rgba(184,75,234,0.05);
     animation: fadeIn 1s ease both 0.6s;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     margin-top: 2rem;
   }
   .message-card::before {
     content: '';
-    position: absolute; inset: 0;
+    position: absolute; inset: 0; border-radius: inherit;
     background: linear-gradient(135deg, rgba(184,75,234,0.05) 0%, transparent 60%);
     pointer-events: none;
   }
+
+  /* ─── FOTOS LATERALES (Jun y Song) ─── */
+  .box-banner {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    height: 80%; width: auto; object-fit: contain;
+    filter: drop-shadow(0 0 16px rgba(184,75,234,0.5));
+    z-index: 2; pointer-events: none;
+  }
+  .box-banner.left  { left: clamp(-370px, -29vw, -130px); }
+  .box-banner.right { right: clamp(-325px, -26vw, -120px); }
 
   .congrats-jp {
     font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
@@ -621,4 +648,5 @@
   @media (max-width: 480px) {
     .name-main { font-size: 3.5rem; }
     .orbit-icon { font-size: 1.6rem; }
+    .box-banner { display: none; }
   }

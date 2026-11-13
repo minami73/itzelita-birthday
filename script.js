@@ -2,6 +2,8 @@
 const sfxFanfare  = new Audio('sounds/fanfare.mp3');
 const sfxCongrats = new Audio('sounds/congratulations.mp3');
 const sfxCheering = new Audio('sounds/cheering.mp3');
+const sfxWhoosh   = new Audio('sounds/whoosh.mp3');
+const sfxSelect   = new Audio('sounds/select.mp3');
 
 function enterPage() {
   const overlay = document.getElementById('intro-overlay');
@@ -10,6 +12,33 @@ function enterPage() {
   sfxFanfare.volume = 0.7;
   sfxFanfare.play().catch(() => {});
 }
+
+// Cooky asoma desde una esquina aleatoria al hacer hover en el botón de la intro
+(function () {
+  const btn = document.getElementById('intro-btn');
+  const cooky = document.getElementById('cooky-peek');
+  if (!btn || !cooky) return;
+  const corners = ['corner-tl', 'corner-tr', 'corner-bl', 'corner-br'];
+  btn.addEventListener('mouseenter', () => {
+    cooky.classList.remove('show', ...corners);
+    cooky.classList.add(corners[Math.floor(Math.random() * corners.length)]);
+    void cooky.offsetWidth; // reinicia la transición
+    cooky.classList.add('show');
+    sfxWhoosh.currentTime = 0;
+    sfxWhoosh.play().catch(() => {});
+  });
+  btn.addEventListener('mouseleave', () => cooky.classList.remove('show'));
+})();
+
+// Sonido de selección al hacer hover sobre el título "¡Feliz Cumpleaños!" de la intro
+(function () {
+  const title = document.getElementById('intro-title');
+  if (!title) return;
+  title.addEventListener('mouseenter', () => {
+    sfxSelect.currentTime = 0;
+    sfxSelect.play().catch(() => {});
+  });
+})();
 
 function playCongratsSound() {
     sfxCongrats.currentTime = 0;
@@ -110,11 +139,14 @@ spawnConfetti(120);
 // ─── FLOATING EMOJIS ─────────────────────────────────────
 const floaterEmojis = ['💖', '🎁', '💐', '⭐', '✨', '🌟', '🎊', '🎂', '🎀', '🌸'];
 const floaterContainer = document.getElementById('floaters');
-for (let i = 0; i < 18; i++) {
+const floaterCount = 20;
+// Posiciones repartidas en franjas iguales (con variación) para que no se amontonen a un lado
+const floaterSlots = Array.from({ length: floaterCount }, (_, i) => i).sort(() => Math.random() - 0.5);
+for (let i = 0; i < floaterCount; i++) {
     const el = document.createElement('div');
     el.classList.add('floater');
-    el.textContent = floaterEmojis[Math.floor(Math.random() * floaterEmojis.length)];
-    el.style.left = Math.random() * 100 + 'vw';
+    el.textContent = floaterEmojis[i % floaterEmojis.length];
+    el.style.left = ((floaterSlots[i] + Math.random()) / floaterCount) * 94 + 'vw';
     el.style.animationDuration = (Math.random() * 12 + 8) + 's';
     el.style.animationDelay = (Math.random() * 10) + 's';
     el.style.fontSize = (Math.random() * 1.5 + 1.2) + 'rem';
