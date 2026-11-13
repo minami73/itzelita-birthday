@@ -45,7 +45,7 @@ function drawStars() {
         s.alpha = Math.max(0.1, Math.min(1, s.alpha));
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(214,40,40,${s.alpha})`;
+        ctx.fillStyle = `rgba(184,75,234,${s.alpha})`;
         ctx.fill();
         s.y += s.speed;
         if (s.y > canvas.height) { s.y = 0; s.x = Math.random() * canvas.width; }
@@ -61,7 +61,7 @@ cc.width = window.innerWidth;
 cc.height = window.innerHeight;
 window.addEventListener('resize', () => { cc.width = window.innerWidth; cc.height = window.innerHeight; });
 
-const COLORS = ['#FF87C3', '#FFE066', '#C89BFF', '#D62828', '#FFB3D9', '#FF6B6B'];
+const COLORS = ['#FF87C3', '#FFE066', '#C89BFF', '#8f0cc7', '#FFB3D9', '#FF6B6B'];
 let confetti = [];
 
 function spawnConfetti(n = 60) {
@@ -174,7 +174,7 @@ document.addEventListener('click', e => {
 
 // ─── SURPRISE MESSAGES ───────────────────────────────────
 const surprises = [
-    `💖 ¡DATOS IMPORTANTES SOBRE ITZELITA!<br><br>
+    `💖 ¡DATOS IMPORTANTES SOBRE ITZEL!<br><br>
    🌟 Es de esas personas que hacen más bonito cualquier lugar donde llegan.<br>
    🎁 Hoy el universo entero tiene un regalo guardado para ella.<br>
    💐 Se sospecha que las flores florecen más cuando ella pasa.<br>
@@ -186,7 +186,7 @@ const surprises = [
    • Nadie sabe cuántas velas caben, pero todas piden un deseo por ella. 🎂`,
 
     `✨ UN MENSAJE DE LAS ESTRELLAS:<br><br>
-   "Itzelita, hoy brillamos solo para ti.
+   "Itzel, hoy brillamos solo para ti.
    Que este año venga lleno de cosas bonitas.
    P.D. — Pide un deseo, que hoy sí se cumple." 💖`,
 
@@ -216,6 +216,6 @@ document.addEventListener('keydown', e => {
     if (kIndex === konami.length) {
         kIndex = 0;
         for (let i = 0; i < 5; i++) setTimeout(() => spawnConfetti(100), i * 200);
-        alert('🎉 ¡KONAMI CODE! Itzelita encontró el Easter Egg secreto. +1000 puntos de brillo. ✨');
+        alert('🎉 ¡KONAMI CODE! Itzel encontró el Easter Egg secreto. +1000 puntos de brillo. ✨');
     }
 });
