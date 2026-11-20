@@ -211,38 +211,86 @@ document.addEventListener('click', e => {
 });
 
 // ─── SURPRISE MESSAGES ───────────────────────────────────
-const surprises = [
-    `💖 ¡DATOS IMPORTANTES SOBRE ITZEL!<br><br>
-   🌟 Es de esas personas que hacen más bonito cualquier lugar donde llegan.<br>
-   🎁 Hoy el universo entero tiene un regalo guardado para ella.<br>
-   💐 Se sospecha que las flores florecen más cuando ella pasa.<br>
-   ✨ TODO: agregar un dato real y personal aquí.`,
-
-    `😂 TEORÍAS CONSPIRATIVAS SOBRE SU CUMPLEAÑOS:<br><br>
-   • Las estrellas se pusieron de acuerdo para brillar más hoy.<br>
-   • El pastel ya sabe que es el protagonista del día.<br>
-   • Nadie sabe cuántas velas caben, pero todas piden un deseo por ella. 🎂`,
-
-    `✨ UN MENSAJE DE LAS ESTRELLAS:<br><br>
-   "Itzel, hoy brillamos solo para ti.
-   Que este año venga lleno de cosas bonitas.
-   P.D. — Pide un deseo, que hoy sí se cumple." 💖`,
-
-    `🎓 UN MENSAJE DEL PROFE JARED:<br><br>
-   "Que cumplas muchos más y que siempre estés rodeada de gente que te quiera.
-   ¡Feliz cumpleaños!" 💐`,
-];
-let surpriseIndex = 0;
+const surpriseText = `🎓 UN MENSAJE DEL PROFE JARED:<br><br>
+   "¡Muchas felicidades! Que cumplas muchos años más y que siempre estés rodeada de la gente que te ama.
+   ¡Feliz cumpleaños!" 💐`;
+let surpriseShown = false;
 
 function showSurprise() {
+    if (surpriseShown) return;
+    surpriseShown = true;
     sfxAlert.currentTime = 0;
     sfxAlert.play().catch(() => { });
     const msg = document.getElementById('surprise-msg');
-    msg.innerHTML = surprises[surpriseIndex % surprises.length];
+    msg.innerHTML = surpriseText;
     msg.classList.add('show');
-    surpriseIndex++;
     spawnConfetti(80);
     setTimeout(() => msg.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+
+    // A los 7 segundos aparece la foto de BTS debajo del mensaje
+    setTimeout(() => {
+        const pic = document.getElementById('surprise-pic');
+        pic.classList.add('show');
+        spawnConfetti(60);
+        setTimeout(() => pic.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+    }, 7000);
+}
+
+// ─── CARTA DE JULI Y MILI ────────────────────────────────
+let letterOpened = false;
+function openLetter() {
+    if (letterOpened) return;
+    letterOpened = true;
+    sfxAlert.currentTime = 0;
+    sfxAlert.play().catch(() => { });
+    spawnConfetti(80);
+    document.getElementById('envelope').classList.add('hide');
+    const letter = document.getElementById('letter');
+    // La sección reserva altura para poder hacer scroll hasta la carta antes de que crezca
+    letter.parentElement.classList.add('opened');
+    letter.classList.add('open');
+    // Scroll suave que deja la carta a ~35% desde arriba, sin bajar de más
+    setTimeout(() => {
+        const top = letter.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.35;
+        window.scrollTo({ top, behavior: 'smooth' });
+    }, 50);
+
+    // Primero la foto de Mili, luego la de Juli y después la razón 1 con el botón
+    const photos = letter.querySelectorAll('.letter-photos figure');
+    photos.forEach((fig, i) => setTimeout(() => fig.classList.add('show'), 900 + i * 900));
+    // Luego el título y, un momento después, cae la razón 1 con el botón justo debajo
+    const titleDelay = 900 + photos.length * 900;
+    setTimeout(() => letter.querySelector('.letter-title').classList.add('show'), titleDelay);
+    setTimeout(() => {
+        revealReason();
+        document.getElementById('next-reason').classList.add('visible');
+    }, titleDelay + 1200);
+}
+
+let reasonIndex = 0;
+function revealReason() {
+    const letter = document.getElementById('letter');
+    const reasons = letter.querySelectorAll('.letter-reasons li');
+    if (reasonIndex >= reasons.length) return;
+    const li = reasons[reasonIndex++];
+    li.classList.add('show');
+    setTimeout(() => li.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+
+    // Al llegar a la razón 10: desaparece el botón y sale la dedicatoria sola
+    if (reasonIndex === reasons.length) {
+        document.getElementById('next-reason').classList.remove('visible');
+        const closing = letter.querySelector('.letter-closing');
+        const sign = letter.querySelector('.letter-sign');
+        setTimeout(() => closing.classList.add('show'), 1500);
+        setTimeout(() => {
+            sign.classList.add('show');
+            spawnConfetti(120);
+        }, 3000);
+    }
+}
+
+function nextReason() {
+    revealReason();
 }
 
 // ─── KONAMI CODE EASTER EGG ──────────────────────────────

@@ -609,6 +609,102 @@
 
   /* ─── CLICK ME BUTTON ─── (comparte estilo con #intro-btn, ver arriba) */
 
+  /* ─── CARTA DE JULI Y MILI ─── */
+  .letter-section {
+    display: flex; flex-direction: column; align-items: center;
+    width: 100%;
+  }
+  .letter-section.opened { min-height: 70vh; justify-content: flex-start; }
+  .envelope.hide {
+    display: none;
+  }
+  .letter {
+    display: none;
+    background: rgba(184,75,234,0.08);
+    border: 2px solid var(--red);
+    border-radius: 24px;
+    padding: 2rem 2.2rem;
+    max-width: 680px;
+    width: 90%;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(184,75,234,0.15), inset 0 0 30px rgba(184,75,234,0.05);
+  }
+  .letter.open { display: block; animation: fadeIn 0.8s ease both; }
+  .letter-photos {
+    display: flex; justify-content: center; gap: 1.2rem;
+    margin: 0;
+  }
+  .letter-photos figure {
+    margin: 0 0 1.5rem; width: 44%; max-width: 220px;
+    background: var(--white);
+    padding: 8px 8px 4px;
+    border-radius: 6px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 0 20px rgba(184,75,234,0.4);
+  }
+  /* Todo lo de la carta empieza oculto (sin ocupar espacio) y la tarjeta crece al ir apareciendo */
+  .letter-photos figure,
+  .letter-title,
+  .letter-reasons li,
+  .letter-closing,
+  .letter-sign { display: none; }
+  .letter-photos figure.show { display: block; animation: letterFade 0.9s ease both; }
+  .letter-title.show { display: block; animation: letterDrop 0.8s ease both; }
+  .letter-reasons li.show { display: list-item; animation: letterDrop 0.8s ease both; }
+  .letter-closing.show,
+  .letter-sign.show { display: block; animation: letterDrop 0.9s ease both; }
+  @keyframes letterFade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes letterDrop {
+    from { opacity: 0; transform: translateY(-14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .next-reason { display: none; margin: 0.5rem auto 1.2rem; }
+  .next-reason.visible { display: inline-block; animation: fadeIn 0.5s ease both; }
+  .letter-photos figure:nth-child(1) { transform: rotate(-4deg); }
+  .letter-photos figure:nth-child(2) { transform: rotate(4deg); }
+  .letter-photos img {
+    width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block;
+    border-radius: 3px;
+  }
+  .letter-photos figcaption {
+    color: var(--black);
+    font-family: 'Pacifico', cursive;
+    font-size: 1.1rem;
+    padding: 6px 0 4px;
+  }
+  .letter-title {
+    font-family: 'Fredoka One', cursive;
+    color: var(--yellow);
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin: 0 0 1rem;
+  }
+  .letter-reasons {
+    text-align: left;
+    color: var(--white);
+    font-weight: 600;
+    line-height: 1.6;
+    padding-left: 1.6rem;
+    margin: 0 0 1.2rem;
+  }
+  .letter-reasons li {
+    margin-bottom: 0.7rem;
+    padding-left: 0.3rem;
+  }
+  .letter-reasons li::marker { color: var(--pink); font-family: 'Fredoka One', cursive; }
+  .letter-closing {
+    color: var(--purple);
+    font-style: italic;
+    line-height: 1.7;
+    margin: 0 0 1rem;
+  }
+  .letter-sign {
+    color: var(--yellow);
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+  }
+
   /* ─── SURPRISE MESSAGE ─── */
   #surprise-msg {
     display: none;
@@ -626,6 +722,15 @@
     animation: fadeIn 0.5s ease both;
   }
   #surprise-msg.show { display: block; }
+  #surprise-pic {
+    display: none;
+    max-width: 250px;
+    width: 45%;
+    border-radius: 20px;
+    border: 2px solid var(--pink);
+    box-shadow: 0 0 30px rgba(255,135,195,0.35);
+  }
+  #surprise-pic.show { display: block; animation: fadeIn 1s ease both; }
 
   /* ─── FOOTER ─── */
   .footer {

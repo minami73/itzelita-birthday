@@ -47,15 +47,6 @@
     </div>
   </div>
 
-  <!-- AGE BADGE -->
-  <div class="age-badge-wrapper">
-    <span class="badge-cake-ext">🎁</span>
-    <div class="age-badge">
-      <span class="badge-num">00</span> <!-- TODO: poner la edad de Itzel -->
-    </div>
-    <span class="badge-cake-ext">🎁</span>
-  </div>
-
   <!-- MESSAGE CARD -->
   <div class="message-card">
     <img src="images/jun.png" alt="Jun" class="box-banner left">
@@ -80,11 +71,43 @@
     </div>
   </div>
 
+  <!-- CARTA DE JULI Y MILI -->
+  <div class="letter-section">
+    <button class="surprise-btn envelope" id="envelope" onclick="openLetter()">
+      💌 <span class="btn-text">Toca para abrir la carta de Juli y Mili</span>
+    </button>
+    <div class="letter" id="letter">
+      <div class="letter-photos">
+        <figure><img src="images/mili.jpeg" alt="Mili"><figcaption>Mili</figcaption></figure>
+        <figure><img src="images/juli.jpeg" alt="Juli"><figcaption>Juli</figcaption></figure>
+      </div>
+      <h2 class="letter-title">Razones por las que amamos a mamá 💖</h2>
+      <ol class="letter-reasons">
+        <li>Por darnos el regalo de la vida y hacernos tus hijas.</li>
+        <li>Porque eres una mujer luchadora y fuerte.</li>
+        <li>Porque eres una madre cariñosa y detallista con cada una de nosotras y das todo de ti.</li>
+        <li>Porque siempre que necesitamos ayuda ahí estás y nos apoyas.</li>
+        <li>Porque siempre buscas nuestro bienestar.</li>
+        <li>Porque siempre das la cara por nosotras pase lo que pase.</li>
+        <li>Por educarnos con valores y guiarnos por un buen camino.</li>
+        <li>Porque te paras desde temprano para prepararnos nuestro lunch aunque estés desvelada.</li>
+        <li>Porque permaneces con nosotras cuando nos desvelamos haciendo proyectos.</li>
+        <li>Por simplemente estar ahí y ser la mujer bella y hermosa que eres.</li>
+      </ol>
+      <button class="surprise-btn next-reason" id="next-reason" onclick="nextReason()">
+        <span class="btn-text">Siguiente razón</span> 💜
+      </button>
+      <p class="letter-closing">Le agradecemos a Dios que en esta vida tuvimos la grandísima bendición de que tú fueras nuestra mamá, y si tuviéramos la oportunidad pediríamos que en cada vida se nos conceda la dicha de que tú fueras nuestra mamá y nosotras tus hijas.</p>
+      <div class="letter-sign">— Juli y Mili 💖 —</div>
+    </div>
+  </div>
+
   <!-- SURPRISE BUTTON -->
   <button class="surprise-btn" onclick="showSurprise()">
     🎁 <span class="btn-text">Toca aquí si quieres otra sorpresa</span> 👀
   </button>
   <div id="surprise-msg"></div>
+  <img id="surprise-pic" src="images/bts happy birthday.jpg" alt="BTS Happy Birthday">
 
   <!-- FOOTER -->
   <div class="footer">
